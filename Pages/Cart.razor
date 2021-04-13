@@ -1,0 +1,113 @@
+﻿@page "/cart"
+@using WatchStore.Data.CartServe
+@inject CartService cartService
+
+@inject ILocalStorageService localStorage
+
+<div class="container my-5">
+    <div class="text-center">
+        <h1>Shopping Cart</h1>
+    </div>
+
+    <div class="card shadow-sm rounded">
+        @if (cartItems == null || cartItems.Count <= 0)
+        {
+            <div class="text-center py-5 ">
+                <h5>You don't have any item in the cart...</h5>
+            </div>
+        }
+        else
+        {
+
+
+            @*start here*@
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            @*<th></th>*@
+                            <th>Price</th>
+                            <th style="width:10%;">Quantity</th>
+                            <th>Subtotal</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in cartItems)
+                        {
+                            <tr>
+                                <td style="min-width: 300px;">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 Product-img">
+                                            <img src="@item.Image" alt="..." class="img-responsive" />
+                                        </div>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-10 Product-descrip">
+                                            <h4 class="nomargin">@item.Name</h4>
+                                            <p>@item.Description</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@item.Price</td>
+                                <td data-th="Quantity">
+                                    <input type="number" style="font-size: 12px;" class="form-control text-center" @bind="item.Quantity">
+                                </td>
+                                <td>@item.SubTotal</td>
+                                <td class="actions" data-th="" style="min-width: 92px;">
+                                    <button class="btn btn-info btn-sm">
+                                        <i class="fas fa-sync"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="hidden-xs"></td>
+                            <td colspan="2" class="hidden-xs text-center" style="width:20%;"><strong>Total (@cartItems.Count): R @cartItems.Sum(item => item.SubTotal)</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+
+            <div class="">
+                <div class="row justify-content-between px-3 py-2">
+                    <div class="col-6">
+                        <a href="#" class="btn btn-warning btn-small text-white"><i class="fa fa-angle-left"></i> Continue Shopping</a>
+                    </div>
+                    <div class="col-6 text-right">
+                        <a href="#" class="btn btn-success btn-small">Checkout <i class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            @*ends here*@
+        }
+    </div>
+
+</div>
+
+<style>
+</style>
+
+@code {
+    List<CartItems> cartItems = new List<CartItems>();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await RefreshCartProducts();
+    }
+
+    private async Task RefreshCartProducts()
+    {
+        var cartProds = await cartService.GetCartItems();
+        if (cartItems != null)
+        {
+            cartItems = cartProds;
+        }
+    }
+
+}

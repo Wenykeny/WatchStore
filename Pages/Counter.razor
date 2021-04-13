@@ -1,0 +1,33 @@
+﻿@page "/counter"
+
+<div class="container text-center">
+    <h1>Counter</h1>
+
+    <AuthorizeView>
+        <Authorized>
+
+            <p>Current count: @currentCount</p>
+
+            <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+        </Authorized>
+
+        <NotAuthorized>
+
+            <p>You are not authorized to access the counter service</p>
+
+            <p>Please, <a href="Identity/Account/Login" class=""><b>Login</b></a></p>
+
+        </NotAuthorized>
+    </AuthorizeView>
+</div>
+
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}

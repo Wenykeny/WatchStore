@@ -1,0 +1,83 @@
+﻿@using WatchStore.Data.CartServe
+@inject CartService cartService
+@implements IDisposable
+
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="">OctoBytes</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapseOpen" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapseOpen">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+
+            <div>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products" tabindex="-1" aria-disabled="true">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="counter">Counter</a>
+                    </li>
+                    @*<AuthorizeView>
+                        <Authorized>*@
+                    <li class="nav-item">
+                        <a href="cart" class="nav-link text-warining">
+                            <i class="fas fa-shopping-bag">
+                                <small>@cartService.cartItemCount</small>
+                            </i>
+                        </a>
+                    </li>
+                    @*</Authorized>
+                        </AuthorizeView>*@
+                </ul>
+            </div>
+            <div class="userLogged-wrapper">
+                <AuthorizeView>
+                    <Authorized>
+                        <div class="userLogged-info pt-2">
+                            Hello, @context.User.Identity.Name
+                        </div>
+                        <div class="userLogout-btn">
+                            <form method="post" action="Identity/Account/LogOut">
+                                <button type="submit" class="btn btn btn-outline-danger btn-small">
+                                    <i class="fas fa-power-off"></i>
+                                </button>
+                            </form>
+                        </div>
+                        @*<a href="Identity/Account/Manage">Hello, @context.User.Identity.Name!</a>*@
+
+                        @*<form method="post" action="Identity/Account/LogOut">
+                                <button type="submit" class="nav-link btn btn-link">Log out</button>
+                            </form>*@
+                    </Authorized>
+                    <NotAuthorized>
+                        <a href="Identity/Account/Register" class="btn btn-outline-primary mx-1">Register</a>
+                        <a href="Identity/Account/Login" class="btn btn-outline-info">Log in</a>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </div>
+        </div>
+    </div>
+</nav>
+
+@code{
+    protected override void OnInitialized()
+    {
+        cartService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        cartService.OnChange -= StateHasChanged;
+    }
+}
+
+<style>
+</style>

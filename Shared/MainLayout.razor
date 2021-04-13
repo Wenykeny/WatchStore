@@ -1,0 +1,58 @@
+﻿@inherits LayoutComponentBase
+<!--<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+    <div class="main">
+        <div class="top-row px-4">
+            <AuthorizeView>
+                <Authorized>
+                    <a href="Identity/Account/Manage">Hello, @context.User.Identity.Name!</a>-->
+@*<form method="post" action="Identity/Account/LogOut">
+        <button type="submit" class="nav-link btn btn-link">Log out</button>
+    </form>*@
+
+<!--<a class="nav-link btn btn-link" href="Identity/Account/LogOut">LogOut</a>-->
+@*<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+        <button type="submit" class="nav-link btn btn-link text-dark">Click here to Logout</button>
+    </form>*@
+<!--</Authorized>
+                <NotAuthorized>
+                    <a href="Identity/Account/Register">Register</a>
+                    <a href="Identity/Account/Login">Log in</a>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
+    </div>
+</div>-->
+
+<header>
+    <section class="top-menu pb-5">
+        @*<LoginDisplay />*@
+        <NavMenu />
+    </section>
+</header>
+
+<main>
+    <section class="main mt-2">
+        @Body
+    </section>
+</main>
+
+<footer>
+    <section class="footer">
+        <Footer />
+    </section>
+</footer>
+
+<BlazoredToasts Position="ToastPosition.BottomRight"
+                Timeout="5"
+                ShowProgressBar="true"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fa fa-thumbs-up"
+                ErrorIcon="fas fa-times-circle" />

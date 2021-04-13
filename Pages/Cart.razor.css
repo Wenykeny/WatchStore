@@ -1,0 +1,9 @@
+﻿.Product-img img {
+    width: 100%;
+}
+
+@media (max-width: 575px) {
+    .Product-descrip {
+        text-align: center;
+    }
+}

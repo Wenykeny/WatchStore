@@ -1,0 +1,39 @@
+.userLogged-wrapper {
+    margin-left: 20px;
+}
+
+.userLogged-info {
+    display: inline-block;
+}
+
+.userLogout-btn {
+    display: inline-block;
+}
+
+.nav-link .fa-shopping-bag {
+    font-size: 22px;
+}
+
+    .nav-link .fa-shopping-bag small {
+        font-size: 12px;
+        color: black;
+        margin-left: 1px;
+    }
+
+
+@media (max-width: 990px) {
+    .userLogged-wrapper {
+        margin-left: 0;
+    }
+
+    .userLogged-info {
+        margin-top: 10px;
+        display: block;
+    }
+
+    .userLogout-btn {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+}
